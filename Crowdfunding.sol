@@ -80,11 +80,10 @@ contract Crowdfunding {
     }
 
     // Function to donate to a campaign
-    function donateToCampaign(uint _campaignId, uint _amount) public payable campaignExists(_campaignId) campaignNotEnded(_campaignId) {
+    function donateToCampaign(uint _campaignId) public payable campaignExists(_campaignId) campaignNotEnded(_campaignId) {
         Campaign storage campaign = campaigns[_campaignId];
 
         require(block.timestamp <= campaign.deadline, "Campaign has already ended");
-        require(msg.value == _amount, "Sent value does not match the specified donation amount");
         require(msg.value > 0, "Donation must be greater than zero");
 
         // Update the amount raised
